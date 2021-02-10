@@ -1,0 +1,6 @@
+External Libraries: tkinter and rectpack 
+
+Install Instructions:
+
+1. Download rectpack library using the command: python3 -m pip install rectpack
+2. Download tinter library using the command: python3 -m pip install tkinter
