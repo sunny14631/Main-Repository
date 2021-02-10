@@ -1,4 +1,4 @@
-SCENARIO. A user receives an email offering to participate in a lottery for a big win. He is
+SCENARIO: A user receives an email offering to participate in a lottery for a big win. He is
 asked to click on a link at the email and further follow the instructions to download and run a
 program (bot.exe). Out of curiosity, the user allows the program to run trying to enroll in the
 lottery. Unfortunately, the program is a malware that has infected the user’s machine and turned
